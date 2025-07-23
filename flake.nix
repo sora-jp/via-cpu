@@ -30,9 +30,10 @@
       });
 
       nixosModules.default = {lib, config, options, pkgs, ...}:
-        with lib;
+        with lib; with lib.satrn;
         let inherit (poetry2nix.lib.mkPoetry2Nix { pkgs = pkgs; }) mkPoetryApplication;
             app = mkPoetryApplication { projectDir = self; };
+            cfg = config.satrn.programs.viacpu;
         in {
            options.satrn.programs.viacpu = with types; {
              enable = mkBoolOpt false "Enable minimal system configuration";
@@ -42,9 +43,10 @@
              systemd.services.viacpu = {
                wantedBy = ["graphical.target"];
                serviceConfig = {
-                 Type = "Simple";
+                 Type = "simple";
+                 Restart = "always";
                  User = "sora";
-                 Exec = "${app.out}/bin/viacpu";
+                 ExecStart = "${app.out}/bin/viacpu";
                };
              };
 
