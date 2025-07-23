@@ -1,0 +1,22 @@
+[tool.poetry]
+name = "via-cpu"
+version = "0.1.0"
+description = ""
+authors = ["Oskar Tornevall <oskar.tornevall@gmail.com>"]
+# readme = "README.md"
+# license = "BSD"
+packages = [
+  { include = "via_cpu" }
+]
+
+[tool.poetry.scripts]
+viacpu = "via_cpu.main:main"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+hid = "^1.0.8"
+psutil = "^7.0.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
