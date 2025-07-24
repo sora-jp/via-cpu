@@ -43,9 +43,12 @@ async def _main():
         await asyncio.sleep(1)
         cpu = int(psutil.cpu_percent())
         mem = int(psutil.virtual_memory().percent)
-        send_raw_report([
-            0x07, cpu, mem
-        ])
+        try:
+            send_raw_report([
+                0x07, cpu, mem
+            ])
+        except:
+            pass
 
 def main():
     asyncio.run(_main())
